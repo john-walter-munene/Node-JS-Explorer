@@ -1,0 +1,27 @@
+<!-- index.ejs -->
+<html>
+  <head>
+    <title>Homepage</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+      <div class="home">
+        <%- include('navbar', {links: links}) %>
+        <%= message %>
+
+        <p>This is my first website done on Express using views as templates</p>
+
+        <img src="/John Walter.jpeg" />
+
+        <h3>Rendering a list dynamically for some items</h3>
+
+        <ul>
+            <% users.forEach((user) => { %>
+                <%- include('users/user', { user: user }) %>
+            <% }); %>
+        </ul> 
+
+        <%-include('footer')  %>
+    </div>   
+  </body>
+</html>

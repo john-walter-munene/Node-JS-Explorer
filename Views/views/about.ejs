@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/about.css" >
+    <title>About the developer</title>
+</head>
+<body>
+    <div class="about">
+        <%- include('navbar', { links: links })%>
+
+        <h1>All-round Techies</h1>
+
+        <img src="/John Walter.jpeg" />
+
+        <p>I provide the following services</p>
+
+        <ul>
+            <% services.forEach((service) => { %>
+                <li><%= service %></li>
+            <% }) %>
+        </ul>
+
+        <%-include('footer')  %>
+    </div>
+</body>
+</html>
