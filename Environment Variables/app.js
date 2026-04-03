@@ -1,4 +1,5 @@
 require('dotenv').config();
+// console.log("dotenv loaded:", process.env); // Debug line
 
 if (process.env.NODE_ENV === "prod") {
     console.log("Running in production!");
