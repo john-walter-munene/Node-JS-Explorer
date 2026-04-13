@@ -1,19 +1,10 @@
-require('dotenv').config();
+require('dotenv').config({ path: '../.env' });
 const { Pool } = require("pg");
 
-// All of the following properties should be read from environment variables
-// Hardcoding them here for simplicity
 module.exports = new Pool({
-  host: "localhost", // or wherever the db is hosted
-  user: "HomePC",
-  database: "top_users",
-  password: "552354",
-  port: 5432 // The default port
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  database: process.env.DB_NAME,
+  password: process.env.DATABASE_PASSWORD,
+  port: Number(process.env.DB_PORT),
 });
-
-// Alternative to defining the connection...
-// Again, this should be read from an environment variable
-// module.exports = new Pool({
-//   connectionString: "postgresql://<role_name>:<role_password>@localhost:5432/top_users"
-// });
-
