@@ -1,4 +1,5 @@
-require('dotenv').config({ path: '../.env' });
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '../.env') });
 const { Client } = require("pg");
 
 const SQL = `
@@ -14,20 +15,26 @@ VALUES
   ('Damon');
 `;
 
-const roleName = process.env.roleName;
-const rolePassword = process.env.role_password;
+const user = process.env.DB_USER;
+const password = process.env.DATABASE_PASSWORD;
+const dbName = process.env.DB_NAME;
+const host = process.env.DB_HOST;
+const port = process.env.DB_PORT;
 
-if (!roleName) console.log("Role name unavailable");
-if (!rolePassword) console.log("Password unavailable");
+if (!user) console.log("User unavailable");
+if (!password) console.log("Password unavailable");
 
 async function main() {
   console.log("seeding...");
+
   const client = new Client({
-    connectionString: `postgresql://${roleName}:${rolePassword}@localhost:5432/top_users`,
+    connectionString: `postgresql://${user}:${password}@${host}:${port}/${dbName}`,
   });
+
   await client.connect();
   await client.query(SQL);
   await client.end();
+
   console.log("done");
 }
 
