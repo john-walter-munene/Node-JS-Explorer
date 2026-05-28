@@ -1,0 +1,60 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["typedSql"]
+}
+
+model User { 
+  id      Int      @id @default(autoincrement()) 
+  email   String   @unique
+  name    String?
+  role    Role     @default(USER) 
+  posts   Post[]
+  profile Profile?
+} 
+
+model Profile { 
+  id     Int    @id @default(autoincrement()) 
+  bio    String
+  user   User   @relation(fields: [userId], references: [id]) 
+  userId Int    @unique
+} 
+
+model Post { 
+  id         Int        @id @default(autoincrement()) 
+  createdAt  DateTime   @default(now()) 
+  updatedAt  DateTime   @updatedAt
+  title      String
+  published  Boolean    @default(false) 
+  author     User       @relation(fields: [authorId], references: [id]) 
+  authorId   Int
+  categories Category[] // Apost can have many catgories
+  comments   Comment[] // A post can have many comments
+  keywords String?
+} 
+
+model Category { 
+  id    Int    @id @default(autoincrement()) 
+  name  String
+  posts Post[]
+} 
+
+model Comment {
+  id Int @id
+  post   Post @relation(fields: [postId], references: [id]) // A comment can have one post
+  postId  Int
+}
+
+model Admin {
+  id Int @id
+  age Int
+}
+
+enum Role { 
+  USER 
+  ADMIN 
+} 
